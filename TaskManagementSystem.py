@@ -1,4 +1,5 @@
 from CreateNewTask import CreateNewTask
+from view_tasks import ViewTasks
 
 class TaskMangementSystem:
 
@@ -23,7 +24,7 @@ class TaskMangementSystem:
                     
 
                 elif choice == "2":
-                    pass
+                    ViewTasks.view_tasks(logged_user)
 
                 elif choice == "3":
                     pass

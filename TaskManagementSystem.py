@@ -3,6 +3,7 @@ from view_tasks import ViewTasks
 from EditTask import EditTask
 from DeleteTask import DeleteTask
 from SearchTask import SearchTask
+from SortingTasks import SortingTasks
 
 class TaskMangementSystem:
 
@@ -39,7 +40,7 @@ class TaskMangementSystem:
                     SearchTask.search_tasks(logged_user)
 
                 elif choice == "6":
-                    pass
+                    SortingTasks.sort_tasks(logged_user)
 
                 elif choice == "7":
                     pass

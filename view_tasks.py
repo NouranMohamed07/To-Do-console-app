@@ -8,7 +8,7 @@ class ViewTasks:
                 for line in file:
                     parts = line.strip().split(",")
                     if parts[6] == user["email"]:
-                        print(f"ID: {parts[0]} \ntitle: {parts[1]} \nstate: {parts[4]} \nDue: {parts[5]} \nPriority: {parts[3]}")
+                        print(f"ID: {parts[0]} \ntitle: {parts[1]} \nstate: {parts[4]} \nDue: {parts[5]} \nPriority: {parts[3]}\n")
         except FileNotFoundError:
             print("No tasks found")
         

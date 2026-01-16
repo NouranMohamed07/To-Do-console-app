@@ -2,6 +2,8 @@ import re
 import hashlib
 import os
 
+from TaskManagementSystem import TaskMangementSystem
+
 class AuthenticationSystem:
 
     @staticmethod
@@ -154,6 +156,8 @@ class AuthenticationSystem:
                                 print(f"Login successful. Welcome {first_name}!")
                                 if user_role == "admin":
                                     AuthenticationSystem.admin_panel()
+                                #elif user_role == "reguler":
+                                    #TaskManagementSystem.main_badge(user)
                                 return {
                                     "id_number": id_number,
                                     "first_name": first_name,
@@ -163,6 +167,7 @@ class AuthenticationSystem:
                                     "status": user_status,
                                     "role": user_role
                                 }
+                                
                             else:
                                 print("error. Wrong password try again")
                                 break

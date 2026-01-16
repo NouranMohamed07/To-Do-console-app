@@ -2,6 +2,7 @@ from CreateNewTask import CreateNewTask
 from view_tasks import ViewTasks
 from EditTask import EditTask
 from DeleteTask import DeleteTask
+from SearchTask import SearchTask
 
 class TaskMangementSystem:
 
@@ -35,7 +36,7 @@ class TaskMangementSystem:
                     DeleteTask.delete_task(logged_user)
 
                 elif choice == "5":
-                    pass
+                    SearchTask.search_tasks(logged_user)
 
                 elif choice == "6":
                     pass
@@ -44,7 +45,7 @@ class TaskMangementSystem:
                     pass
 
                 elif choice == "8":
-                    print("Admin logged out")
+                    print(f"Goodbye {logged_user['first_name']}")
                     exit()
 
                 else:

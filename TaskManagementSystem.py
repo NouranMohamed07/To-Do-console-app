@@ -4,6 +4,7 @@ from EditTask import EditTask
 from DeleteTask import DeleteTask
 from SearchTask import SearchTask
 from SortingTasks import SortingTasks
+from FilterTasks import FilterTasks
 
 class TaskMangementSystem:
 
@@ -43,7 +44,7 @@ class TaskMangementSystem:
                     SortingTasks.sort_tasks(logged_user)
 
                 elif choice == "7":
-                    pass
+                    FilterTasks.filter_tasks(logged_user)
 
                 elif choice == "8":
                     print(f"Goodbye {logged_user['first_name']}")

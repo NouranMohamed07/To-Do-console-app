@@ -11,3 +11,4 @@ class ViewTasks:
                         print(f"ID: {parts[0]} \ntitle: {parts[1]} \nstate: {parts[4]} \nDue: {parts[5]} \nPriority: {parts[3]}")
         except FileNotFoundError:
             print("No tasks found")
+        

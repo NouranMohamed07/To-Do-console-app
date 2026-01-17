@@ -7,18 +7,8 @@ class AuthenticationSystem:
 
     @staticmethod
     def register_user():
-
-
-        # Collect User Data 
-        id_number = validate_id(input("Enter ID Number in 14 digit only: ").strip())
-        first_name = input("Enter First Name: ").strip()
-        last_name = input("Enter Last Name: ").strip()
-        password = input("Enter Password: ").strip()
-        hashed_password = confirm_password(password)
-        email = validate_email_format(input("Enter Email: ").strip())
-        mobile = is_valid_egyptian_mobile(input("Enter Mobile Number: ").strip())
         
-
+        # Helper function
         def is_unique_id(id_number):
             try:
                 with open("users.txt", "r") as file:
@@ -70,6 +60,16 @@ class AuthenticationSystem:
             while not re.fullmatch(pattern, number):
                 number = input("error. Invalid phone number, try again: ").strip()
             return number
+        
+        # Collect User Data 
+        id_number = validate_id(input("Enter ID Number in 14 digit only: ").strip())
+        first_name = input("Enter First Name: ").strip()
+        last_name = input("Enter Last Name: ").strip()
+        password = input("Enter Password: ").strip()
+        hashed_password = confirm_password(password)
+        email = validate_email_format(input("Enter Email: ").strip())
+        mobile = is_valid_egyptian_mobile(input("Enter Mobile Number: ").strip())
+
 
         def status(state):
             if state == "inactive":

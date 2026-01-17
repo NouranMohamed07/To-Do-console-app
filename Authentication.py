@@ -1,6 +1,7 @@
 import re
 import hashlib
 import os
+from TaskNotifications import TaskNotifications
 
 class AuthenticationSystem:
 
@@ -158,7 +159,9 @@ class AuthenticationSystem:
 
                             if check_hash == expected_hash:
                                 print(f"Login successful. Welcome {first_name}!")
-                               
+                                
+                                TaskNotifications.show_notifications({"email": user_email})
+
                                 return {
                                     "id_number": id_number,
                                     "first_name": first_name,

@@ -1,5 +1,6 @@
 from Authentication import AuthenticationSystem
 from TaskManagementSystem import TaskMangementSystem
+from AdminPanel import AdminPanel
 
 def login():
     while True:
@@ -13,7 +14,13 @@ def login():
             logged_user = AuthenticationSystem.login_user()
 
             if logged_user:
-                TaskMangementSystem.main_badge(logged_user)
+                role = logged_user["role"]
+                if role == "admin":
+                    AdminPanel.panel()  
+                else:
+                    TaskMangementSystem.main_badge(logged_user)  
+
+                break # exit from loop when the login was successful
 
         else:
             print("Invalid choice, try again.")

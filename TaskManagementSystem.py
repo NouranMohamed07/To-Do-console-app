@@ -48,7 +48,7 @@ class TaskMangementSystem:
 
                 elif choice == "8":
                     print(f"Goodbye {logged_user['first_name']}")
-                    exit()
+                    break
 
                 else:
                     print("Invalid choice try again")

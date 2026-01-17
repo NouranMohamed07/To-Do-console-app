@@ -2,12 +2,21 @@ import re
 import hashlib
 import os
 
-from TaskManagementSystem import TaskMangementSystem
-
 class AuthenticationSystem:
 
     @staticmethod
     def register_user():
+
+
+        # Collect User Data 
+        id_number = validate_id(input("Enter ID Number in 14 digit only: ").strip())
+        first_name = input("Enter First Name: ").strip()
+        last_name = input("Enter Last Name: ").strip()
+        password = input("Enter Password: ").strip()
+        hashed_password = confirm_password(password)
+        email = validate_email_format(input("Enter Email: ").strip())
+        mobile = is_valid_egyptian_mobile(input("Enter Mobile Number: ").strip())
+        
 
         def is_unique_id(id_number):
             try:
@@ -30,10 +39,12 @@ class AuthenticationSystem:
                     continue
                 return id_number
 
+        # Confirm password method with hashing password
         def confirm_password(password):
             while True:
                 confirm = input("Confirm Password: ").strip()
                 if confirm == password:
+                    # Hash password
                     salt = os.urandom(16)
                     iterations = 260000
                     pw_hash = hashlib.pbkdf2_hmac(
@@ -71,16 +82,8 @@ class AuthenticationSystem:
             else:
                 return "reguler"
 
-        # ---------- Collect User Data ----------
-        id_number = validate_id(input("Enter ID Number in 14 digit only: ").strip())
-        first_name = input("Enter First Name: ").strip()
-        last_name = input("Enter Last Name: ").strip()
-        password = input("Enter Password: ").strip()
-        hashed_password = confirm_password(password)
-        email = validate_email_format(input("Enter Email: ").strip())
-        mobile = is_valid_egyptian_mobile(input("Enter Mobile Number: ").strip())
         
-
+        # Determine role and status
         if not AuthenticationSystem.is_admin_exists():
             user_status = "active"
             user_role = "admin"
@@ -90,6 +93,7 @@ class AuthenticationSystem:
             user_role = "reguler"
             print("User registered as inactive, waiting for admin activation")
         
+
         user = {
             "id_number": id_number,
             "first_name": first_name,
@@ -101,7 +105,7 @@ class AuthenticationSystem:
             "role": user_role
         }
 
-        # ---------- Save User ----------
+        # Save User 
         with open("users.txt", "a") as file:
             file.write(",".join([
                 user["id_number"],
@@ -154,10 +158,7 @@ class AuthenticationSystem:
 
                             if check_hash == expected_hash:
                                 print(f"Login successful. Welcome {first_name}!")
-                                if user_role == "admin":
-                                    AuthenticationSystem.admin_panel()
-                                #elif user_role == "reguler":
-                                    #TaskManagementSystem.main_badge(user)
+                               
                                 return {
                                     "id_number": id_number,
                                     "first_name": first_name,
@@ -192,83 +193,4 @@ class AuthenticationSystem:
         return False
 
 
-    @staticmethod
-    def admin_panel():
-        while True:
-            print("\n Admin Panel ")
-            print("1. Show all users")
-            print("2. Activate user")
-            print("3. Deactivate user")
-            print("4. Exit")
-
-            choice = input("Enter your choice: ").strip()
-
-            if choice == "1":
-                try:
-                    with open("users.txt", "r") as file:
-                        print("\n All Users ")
-                        for line in file:
-                            parts = line.strip().split(",")
-                            print(f"ID: {parts[0]} | Name: {parts[1]} {parts[2]} | Email: {parts[3]} | Status: {parts[6]} | Role: {parts[7]}")
-                except FileNotFoundError:
-                    print("No users found.")
-
-            elif choice == "2":
-                user_id = input("Enter user ID to activate: ").strip()
-                AuthenticationSystem.change_user_status(user_id, "active")
-
-            elif choice == "3":
-                user_id = input("Enter user ID to deactivate: ").strip()
-                AuthenticationSystem.change_user_status(user_id, "inactive")
-
-            elif choice == "4":
-                print("Admin logged out")
-                exit()
-
-            else:
-                print("Invalid choice try again")
-
-    @staticmethod
-    def change_user_status(user_id, new_status):
-        try:
-            updated = False
-            with open("users.txt", "r") as file:
-                lines = file.readlines()
-
-            with open("users.txt", "w") as file:
-                for line in lines:
-                    parts = line.strip().split(",")
-                    if parts[0] == user_id:
-                        parts[6] = new_status
-                        updated = True
-                        print(f"User {parts[1]} is now {new_status}")
-                    file.write(",".join(parts) + "\n")
-
-            if not updated:
-                print("User ID not found")
-
-        except FileNotFoundError:
-            print("No users found")
-
-
-
-
-
-
-
-
-"""
-        # Here you would typically add code to save the user to a database
-        user = {
-            "id_number": validate_id(input("Enter ID Number in 14 digit only: ").strip()),
-            "first_name":  input("Enter First Name: ").strip(),
-            "last_name": input("Enter Last Name: ").strip(),
-            "password": confirm_password(input("Enter Password: ").strip()),
-            "email": validate_email_format(input("Enter Email: ").strip()),
-            "mobile": is_valid_egyptian_mobile(input("Enter Mobile Number: ").strip()),
-            "status": status(input("Enter status (active/inactive) [default: active]: ").strip().lower()),
-            "role": role(input("Enter role  (admin, regular) user  [default: reglar]: ").strip().lower())
-        }
-
-        return {"success": "User registered successfully.", "user": user}
-"""
+    
